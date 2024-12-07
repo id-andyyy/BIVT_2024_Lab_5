@@ -14,59 +14,79 @@ public class Program
         Program program = new Program();
     }
     #region Level 1
-    public long Task_1_1(int n, int k)
+
+    public long Combinations(int n, int k)
     {
-        long answer = 0;
+        return Factorial(n) / (Factorial(k) * Factorial(n - k));
+    }
 
-        // code here
+    public long Factorial(int n)
+    {
+        long answer = 1;
 
-        // create and use Combinations(n, k);
-        // create and use Factorial(n);
-
-        // end
+        for (int i = 2; i <= n; i++)
+        {
+            answer *= i;
+        }
 
         return answer;
+    }
+    
+    public long Task_1_1(int n, int k)
+    {
+        if (n < k || n < 0 || k < 0) return 0;
+        
+        long answer = Combinations(n, k);
+
+        return answer;
+    }
+
+    public bool CheckTriangle(double a, double b, double c)
+    {
+        if (a + b > c && a + c > b && b + c > a) return true;
+        return false;
+    }
+
+    public double GeronArea(double a, double b, double c)
+    {
+        double p = (a + b + c) / 2;
+
+        return Math.Sqrt(p * (p - a) * (p - b) * (p - c));
     }
 
     public int Task_1_2(double[] first, double[] second)
     {
-        int answer = 0;
+        double a1 = first[0], a2 = first[1], a3 = first[2], b1 = second[0], b2 = second[1], b3 = second[2];
 
-        // code here
+        if (!CheckTriangle(a1, a2, a3) || !CheckTriangle(b1, b2, b3)) return -1;
+        
+        double S1 = GeronArea(a1, a2, a3), S2 = GeronArea(b1, b2, b3);
 
-        // create and use GeronArea(a, b, c);
-
-        // end
-
-        // first = 1, second = 2, equal = 0, error = -1
-        return answer;
+        if (S1 > S2) return 1;
+        if (S1 < S2) return 2;
+        return 0;
     }
 
+    public double GetDistance(double v, double a, int t)
+    {
+        return v * t + a * t * t / 2;
+    }
+    
     public int Task_1_3a(double v1, double a1, double v2, double a2, int time)
     {
-        int answer = 0;
+        double s1 = GetDistance(v1, a1, time), s2 = GetDistance(v2, a2, time);
 
-        // code here
-
-        // create and use GetDistance(v, a, t); t - hours
-
-        // end
-
-        // first = 1, second = 2, equal = 0
-        return answer;
+        if (s1 > s2) return 1;
+        if (s1 < s2) return 2;
+        return 0;
     }
 
     public int Task_1_3b(double v1, double a1, double v2, double a2)
     {
-        int answer = 0;
+        int time = 1;
+        while (GetDistance(v1, a1, time) > GetDistance(v2, a2, time)) time++;
 
-        // code here
-
-        // use GetDistance(v, a, t); t - hours
-
-        // end
-
-        return answer;
+        return time;
     }
     #endregion
 
