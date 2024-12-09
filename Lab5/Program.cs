@@ -1153,21 +1153,61 @@ public class Program
     }
     #endregion
     #region bonus part
+
+    public delegate void MatrixConverter(double[,] matrix);
+
+    public void ToUpperTriangular(double[,] matrix)
+    {
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            for (int i = j + 1; i < matrix.GetLength(0); i++)
+            {
+                double k = matrix[i, j] / matrix[j, j];
+
+                for (int jj = j; jj < matrix.GetLength(0); jj++)
+                {
+                    matrix[i, jj] -= k * matrix[j, jj];
+                }
+            }
+        }
+    }
+
+    public void ToLowerTriangular(double[,] matrix)
+    {
+        for (int j = matrix.GetLength(1) - 1; j >= 0; j--)
+        {
+            for (int i = j - 1; i >= 0; i--)
+            {
+                double k = matrix[i, j] / matrix[j, j];
+
+                for (int jj = j; jj >= 0; jj--)
+                {
+                    matrix[i, jj] -= k * matrix[j, jj];
+                }
+            }
+        }
+    }
+
+    public void ToLeftDiagonal(double[,] matrix)
+    {
+        ToUpperTriangular(matrix);
+        ToLowerTriangular(matrix);
+    }
+
+    public void ToRightDiagonal(double[,] matrix)
+    {
+        ToLowerTriangular(matrix);
+        ToUpperTriangular(matrix);
+    }
+    
     public double[,] Task_4(double[,] matrix, int index)
     {
-        // MatrixConverter[] mc = new MatrixConverter[4]; - uncomment me
-
-        // code here
-
-        // create public delegate MatrixConverter(matrix);
-        // create and use method ToUpperTriangular(matrix);
-        // create and use method ToLowerTriangular(matrix);
-        // create and use method ToLeftDiagonal(matrix); - start from the left top angle
-        // create and use method ToRightDiagonal(matrix); - start from the right bottom angle
-
-        // end
+        MatrixConverter[] mc = new MatrixConverter[] { ToUpperTriangular, ToLowerTriangular, ToLeftDiagonal, ToRightDiagonal };
+        
+        mc[index](matrix);
 
         return matrix;
     }
+    
     #endregion
 }
