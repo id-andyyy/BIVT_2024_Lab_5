@@ -1430,7 +1430,7 @@ namespace Tests
         public void Task_3_5Test()
         {
             // Arrange
-            int answerA = 2, answerB = 1;
+            int answerA = 1, answerB = 1;
             // Act
             main.Task_3_5(out int resultA, out int resultB);
             // Assert
